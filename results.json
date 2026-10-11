@@ -1,0 +1,33 @@
+{
+  "question": "Can a gradient-boosting surrogate trained on runs of a simple last-mile delivery agent-based simulation predict the van-minus-bike cost gap under uncertain assumptions better than a linear regression surrogate?",
+  "method": "Numpy ABM of a city grid (customers, parcels, couriers) comparing van and cargo-bike delivery; 9 uncertain assumptions sampled by Latin hypercube over 2000 runs; 80/20 split by run; models compared on test RMSE of the cost gap.",
+  "dataset": {
+    "name": "Self-generated last-mile delivery ABM runs",
+    "source_url": "local numpy simulation (no download)",
+    "n_rows": 2000,
+    "n_train": 1600,
+    "n_test": 400,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "Test RMSE of van-minus-bike cost gap (EUR per parcel)",
+  "higher_is_better": false,
+  "baseline": "Main-effects linear regression surrogate on the standardized assumptions.",
+  "improved": "LightGBM surrogate with hyper-parameters chosen by 3-fold CV random search on the training runs (seeds 42-44).",
+  "metrics": {
+    "baseline_score": 0.5050617080783788,
+    "improved_score": 0.21047353175135552,
+    "improvement": 0.2945881763270233,
+    "baseline_score_std": 0.0,
+    "improved_score_std": 0.00700247992988832,
+    "baseline_r2": 0.8616477212443516,
+    "improved_r2": 0.9759467999854402,
+    "improved_r2_std": 0.0015799717150641044,
+    "baseline_cheaper_mode_accuracy": 0.925,
+    "improved_cheaper_mode_accuracy": 0.9666666666666667,
+    "improved_cheaper_mode_accuracy_std": 0.004249182927993998,
+    "gap_std_all_runs": 1.3506319248195267,
+    "share_bike_cheaper": 0.7705
+  },
+  "notes": "The ABM is a stylised toy (Manhattan grid, nearest-neighbour tours, sweep clustering, invented cost parameters), not the paper's model, so the results show the surrogate comparison only, not real delivery economics. Linear regression is deterministic (std 0); LightGBM mean/std over 3 seeds. Single train/test split; the test set is used only for the final evaluation."
+}
