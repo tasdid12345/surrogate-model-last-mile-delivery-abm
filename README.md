@@ -24,6 +24,30 @@ python analysis.py
 ## Results
 Results are written to `results.json` (and a chart to `figures/`).
 
+## Results (latest run)
+
+On a self-generated last-mile delivery ABM dataset (2,000 runs, 400 held-out test runs), a main-effects linear regression surrogate reached a test RMSE of 0.505 EUR per parcel for the van-minus-bike cost gap, while LightGBM reached 0.210 (std 0.007 over 3 seeds).
+
+| Metric | Value |
+|---|---|
+| baseline_score | 0.5051 |
+| improved_score | 0.2105 |
+| improvement | 0.2946 |
+| baseline_score_std | 0 |
+| improved_score_std | 0.007002 |
+| baseline_r2 | 0.8616 |
+| improved_r2 | 0.9759 |
+| improved_r2_std | 0.00158 |
+| baseline_cheaper_mode_accuracy | 0.925 |
+| improved_cheaper_mode_accuracy | 0.9667 |
+| improved_cheaper_mode_accuracy_std | 0.004249 |
+| gap_std_all_runs | 1.351 |
+| share_bike_cheaper | 0.7705 |
+
+Run on 2026-10-11. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: The ABM is a stylised toy (Manhattan grid, nearest-neighbour tours, sweep clustering, invented cost parameters), not the paper's model, so the results show the surrogate comparison only, not real delivery economics. Linear regression is deterministic (std 0); LightGBM mean/std over 3 seeds. Single train/test split; the test set is used only for the final evaluation.
+
 ## Reference
 
 This project is motivated by the following paper:
